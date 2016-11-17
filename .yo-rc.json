@@ -1,0 +1,11 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": true,
+    "importedSpec": "/Users/rberger/Downloads/pantheon_swagger.json",
+    "name": "OmnyPayPlatform",
+    "repo": "omnypay/omnypay-platform-api",
+    "splitSpec": false,
+    "samples": true,
+    "installSwaggerUI": true
+  }
+}
