@@ -1,11 +1,18 @@
+
+
+
+
 {
     "swagger": "2.0",
     "info": {
-        "title": "OmnyPay Pantheon Service API",
-        "version": "0.0.143",
-        "description": "REST API for the Pantheon Service",
+        "title": "OmnyPay Platform Service API",
+        "version": "0.0.145",
+        "description": "REST API for the OmnyPay Platform Service",
         "contact": {
             "email": "info@omnypay.net"
+        },
+        "x-logo": {
+          "url": "https://static1.squarespace.com/static/54ae3170e4b0afa8bbd35870/t/56391607e4b043f85da73860/1446581767889/omnypay+logo.png"
         }
     },
     "produces": [
@@ -868,7 +875,7 @@
                 "tags": [
                     "wallet"
                 ],
-                "summary": "",
+                "summary": "Provision a new payment instrument",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1208,10 +1215,10 @@
                 ]
             }
         },
-        "/pos-proxy/update-basket": {
+        "/pos/update-basket": {
             "post": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Cumulative Basket update",
                 "responses": {
@@ -1247,13 +1254,14 @@
                             "$ref": "#/definitions/PoSItems"
                         }
                     }
-                ]
+                ],
+                "x-no-doc": null
             }
         },
-        "/pos-proxy/complete-scan": {
+        "/pos/complete-scan": {
             "post": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Complete scanning all items. Once this is called, the Total will be reconciled",
                 "responses": {
@@ -1289,13 +1297,14 @@
                             "$ref": "#/definitions/PoSInfo"
                         }
                     }
-                ]
+                ],
+                "x-no-doc": null
             }
         },
-        "/pos-proxy/status/{merchant-pos-id}": {
+        "/pos/status/{merchant-pos-id}": {
             "get": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Get current Transaction status",
                 "responses": {
@@ -1321,6 +1330,7 @@
                         "description": ""
                     }
                 },
+                "x-no-doc": null,
                 "parameters": [
                     {
                         "in": "path",
@@ -1332,10 +1342,10 @@
                 ]
             }
         },
-        "/pos-proxy/ready-for-payment": {
+        "/pos/ready-for-payment": {
             "post": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Ready for Payment notifies Client Service that payments can be made",
                 "responses": {
@@ -1371,13 +1381,14 @@
                             "$ref": "#/definitions/PoSInfo"
                         }
                     }
-                ]
+                ],
+                "x-no-doc": null
             }
         },
-        "/pos-proxy/cancel-transaction": {
+        "/pos/cancel-transaction": {
             "post": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Cancel current Transaction. Resets Basket state",
                 "responses": {
@@ -1413,13 +1424,14 @@
                             "$ref": "#/definitions/PoSInfo"
                         }
                     }
-                ]
+                ],
+                "x-no-doc": null
             }
         },
-        "/pos-proxy/notification/associate-basket/{merchant-pos-id}": {
+        "/pos/notification/associate-basket/{merchant-pos-id}": {
             "get": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Notification when basket associates with point-of-sale terminal",
                 "responses": {
@@ -1445,6 +1457,7 @@
                         "description": ""
                     }
                 },
+                "x-no-doc": null,
                 "description": "This documents the structure of the notification message which is delivered after a basket is associated with a point-of-sale terminal.
 
 This end-point is for documentation purpose only.",
@@ -1459,10 +1472,10 @@ This end-point is for documentation purpose only.",
                 ]
             }
         },
-        "/pos-proxy/notification/reconcile-total/{merchant-pos-id}": {
+        "/pos/notification/reconcile-total/{merchant-pos-id}": {
             "get": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Notification when basket has reconciled totals",
                 "responses": {
@@ -1488,6 +1501,7 @@ This end-point is for documentation purpose only.",
                         "description": ""
                     }
                 },
+                "x-no-doc": null,
                 "description": "This documents the structure of the notification message which is delivered after a basket has reconciled total payment amount after applying discount offers, rewards and loyalty points.
 
 This end-point is for documentation purpose only.",
@@ -1502,10 +1516,10 @@ This end-point is for documentation purpose only.",
                 ]
             }
         },
-        "/pos-proxy/notification/complete-transaction/{merchant-pos-id}": {
+        "/pos/notification/complete-transaction/{merchant-pos-id}": {
             "get": {
                 "tags": [
-                    "pos-proxy"
+                    "pos"
                 ],
                 "summary": "Notification when basket has completed payment transaction",
                 "responses": {
@@ -1531,6 +1545,7 @@ This end-point is for documentation purpose only.",
                         "description": ""
                     }
                 },
+                "x-no-doc": null,
                 "description": "This documents the structure of the notification message which is delivered after a basket completes the payment transaction and passes the final receipt.
 
 This end-point is for documentation purpose only.",
@@ -1550,7 +1565,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Add a payment instrument offer",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1592,7 +1607,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Add a product offer",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1634,7 +1649,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Add a purchase reward",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1676,7 +1691,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Add a merchant offer",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1718,7 +1733,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Find all product offers",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1761,7 +1776,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Find all payment instrument offers",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1804,7 +1819,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Find all rewards",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1847,7 +1862,7 @@ This end-point is for documentation purpose only.",
                 "tags": [
                     "offer"
                 ],
-                "summary": "",
+                "summary": "Find all merchant offers for a merchant",
                 "responses": {
                     "400": {
                         "schema": {
@@ -1881,214 +1896,6 @@ This end-point is for documentation purpose only.",
                         "description": "",
                         "required": true,
                         "type": "string"
-                    }
-                ]
-            }
-        },
-        "/poynt/update-basket": {
-            "post": {
-                "tags": [
-                    "poynt"
-                ],
-                "summary": "",
-                "responses": {
-                    "400": {
-                        "schema": {
-                            "$ref": "#/definitions/BadRequestBody"
-                        },
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "412": {
-                        "description": "Precondition Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/PoSState"
-                        },
-                        "description": ""
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "PoSItems",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/PoSItems"
-                        }
-                    }
-                ]
-            }
-        },
-        "/poynt/complete-scan": {
-            "post": {
-                "tags": [
-                    "poynt"
-                ],
-                "summary": "",
-                "responses": {
-                    "400": {
-                        "schema": {
-                            "$ref": "#/definitions/BadRequestBody"
-                        },
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "412": {
-                        "description": "Precondition Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/PoSState"
-                        },
-                        "description": ""
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "PoSInfo",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/PoSInfo"
-                        }
-                    }
-                ]
-            }
-        },
-        "/poynt/ready-for-payment": {
-            "post": {
-                "tags": [
-                    "poynt"
-                ],
-                "summary": "",
-                "responses": {
-                    "400": {
-                        "schema": {
-                            "$ref": "#/definitions/BadRequestBody"
-                        },
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "412": {
-                        "description": "Precondition Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/PoSState"
-                        },
-                        "description": ""
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "PoSInfo",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/PoSInfo"
-                        }
-                    }
-                ]
-            }
-        },
-        "/poynt/status/{pos-id}": {
-            "get": {
-                "tags": [
-                    "poynt"
-                ],
-                "summary": "Get current Transaction Status",
-                "responses": {
-                    "400": {
-                        "schema": {
-                            "$ref": "#/definitions/BadRequestBody"
-                        },
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "412": {
-                        "description": "Precondition Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/PoSStatus"
-                        },
-                        "description": ""
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "pos-id",
-                        "description": "",
-                        "required": true,
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/poynt/cancel-transaction": {
-            "post": {
-                "tags": [
-                    "poynt"
-                ],
-                "summary": "",
-                "responses": {
-                    "400": {
-                        "schema": {
-                            "$ref": "#/definitions/BadRequestBody"
-                        },
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
-                    },
-                    "412": {
-                        "description": "Precondition Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/PoSState"
-                        },
-                        "description": ""
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "PoSInfo",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/PoSInfo"
-                        }
                     }
                 ]
             }
@@ -2161,6 +1968,7 @@ This end-point is for documentation purpose only.",
                     "type": "string"
                 },
                 "payment-type": {
+                    "description": "Payment card types",
                     "type": "string",
                     "enum": [
                         "credit",
@@ -2283,16 +2091,20 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "device-id": {
+                    "description": "Unique device identifier",
                     "type": "string"
                 },
                 "created": {
+                    "description": "Session creation timestamp",
                     "type": "string",
                     "format": "date-time"
                 },
                 "state": {
+                    "description": "Internal states of a session",
                     "type": "string",
                     "enum": [
                         "new",
@@ -2301,19 +2113,24 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "merchant-auth-token": {
+                    "description": "Merchant authorization token",
                     "type": "string",
                     "x-nullable": true
                 },
                 "is-active": {
+                    "description": "Indicates whether session is still active",
                     "type": "boolean"
                 },
                 "token": {
+                    "description": "Authorization token for session",
                     "type": "string"
                 },
                 "id": {
+                    "description": "UUID session identifier",
                     "type": "string"
                 },
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string",
                     "x-nullable": true
                 }
@@ -2335,12 +2152,15 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "session-id": {
+                    "description": "UUID session identifier",
                     "type": "string"
                 },
                 "merchant-shopper-id": {
+                    "description": "Merchant shopper identifier",
                     "type": "string"
                 },
                 "merchant-auth-token": {
+                    "description": "Merchant authorization token",
                     "type": "string"
                 }
             },
@@ -2426,9 +2246,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "state": {
+                    "description": "Internal states of a basket",
                     "type": "string",
                     "enum": [
                         "complete-transaction",
@@ -2440,17 +2262,20 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "loyalty-points": {
+                    "description": "Loyalty points to be redeemed",
                     "type": "integer",
                     "format": "int64",
                     "x-nullable": true
                 },
                 "items": {
+                    "description": "Product items in the basket",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Item"
                     }
                 },
                 "offers": {
+                    "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ProductOffer",
@@ -2458,6 +2283,7 @@ This end-point is for documentation purpose only.",
                     }
                 },
                 "reconciled-total": {
+                    "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ReconciledTotal",
@@ -2479,6 +2305,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "points": {
@@ -2497,9 +2324,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 }
             },
@@ -2513,6 +2342,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "status": {
@@ -2533,9 +2363,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 }
             },
@@ -2549,29 +2381,44 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "offers": {
+                    "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ProductOffer"
+                        "$ref": "#/definitions/ProductOffer",
+                        "x-nullable": true
                     }
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 },
                 "total-summary": {
                     "$ref": "#/definitions/TotalSummary"
                 },
                 "state": {
-                    "type": "string"
+                    "description": "Internal states of a basket",
+                    "type": "string",
+                    "enum": [
+                        "complete-transaction",
+                        "new",
+                        "initiate-payment",
+                        "complete-scan",
+                        "cancel-transaction",
+                        "ready-for-payment"
+                    ]
                 },
                 "loyalty-points": {
+                    "description": "Loyalty points to be redeemed",
                     "type": "integer",
                     "format": "int64",
                     "x-nullable": true
                 },
                 "id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "payment-type-offers": {
+                    "description": "List of payment type offers",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/PaymentTypeOffer",
@@ -2579,12 +2426,14 @@ This end-point is for documentation purpose only.",
                     }
                 },
                 "items": {
+                    "description": "Product items in the basket",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Item"
                     }
                 },
                 "reconciled-total": {
+                    "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ReconciledTotal",
@@ -2609,12 +2458,15 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "offers": {
+                    "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ProductOffer"
+                        "$ref": "#/definitions/ProductOffer",
+                        "x-nullable": true
                     }
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 },
                 "receipt": {
@@ -2624,17 +2476,29 @@ This end-point is for documentation purpose only.",
                     "$ref": "#/definitions/TotalSummary"
                 },
                 "state": {
-                    "type": "string"
+                    "description": "Internal states of a basket",
+                    "type": "string",
+                    "enum": [
+                        "complete-transaction",
+                        "new",
+                        "initiate-payment",
+                        "complete-scan",
+                        "cancel-transaction",
+                        "ready-for-payment"
+                    ]
                 },
                 "loyalty-points": {
+                    "description": "Loyalty points to be redeemed",
                     "type": "integer",
                     "format": "int64",
                     "x-nullable": true
                 },
                 "id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "merchant-offers": {
+                    "description": "List of merchant offers",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/MerchantOffer",
@@ -2642,6 +2506,7 @@ This end-point is for documentation purpose only.",
                     }
                 },
                 "payment-type-offers": {
+                    "description": "List of payment type offers",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/PaymentTypeOffer",
@@ -2649,12 +2514,14 @@ This end-point is for documentation purpose only.",
                     }
                 },
                 "items": {
+                    "description": "Product items in the basket",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Item"
                     }
                 },
                 "reconciled-total": {
+                    "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ReconciledTotal",
@@ -2681,9 +2548,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "device-id": {
+                    "description": "Unique device identifier",
                     "type": "string"
                 },
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 }
             },
@@ -2709,6 +2578,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "session-id": {
+                    "description": "UUID session identifier",
                     "type": "string"
                 }
             },
@@ -2737,6 +2607,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "card-type": {
+                    "description": "Payment card types",
                     "type": "string",
                     "enum": [
                         "credit",
@@ -2746,9 +2617,12 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "image-url": {
-                    "type": "string"
+                    "description": "URL for payment card image",
+                    "type": "string",
+                    "x-nullable": true
                 },
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 }
             },
@@ -2811,16 +2685,20 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "sku": {
+                    "description": "Product SKU identifier",
                     "type": "string"
                 },
                 "name": {
+                    "description": "Product name",
                     "type": "string"
                 },
                 "qty": {
+                    "description": "Product quantity",
                     "type": "integer",
                     "format": "int64"
                 },
                 "price": {
+                    "description": "Product price in cents",
                     "type": "integer",
                     "format": "int64"
                 }
@@ -2922,9 +2800,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 },
                 "merchant-pos-label": {
+                    "description": "Descriptive label for merchant point-of-sale terminal",
                     "type": "string"
                 }
             },
@@ -2938,9 +2818,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 },
                 "amount": {
+                    "description": "Payment amount in cents",
                     "type": "integer",
                     "format": "int64"
                 }
@@ -2955,9 +2837,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "wallet-id": {
+                    "description": "UUID wallet identifier",
                     "type": "string"
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 }
             },
@@ -2977,18 +2861,23 @@ This end-point is for documentation purpose only.",
                     }
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 },
                 "card-number": {
+                    "description": "Card number",
                     "type": "string"
                 },
                 "card-alias": {
+                    "description": "User defined alias for the card",
                     "type": "string"
                 },
                 "default": {
+                    "description": "True if this is the default payment instrument",
                     "type": "boolean"
                 },
                 "card-type": {
+                    "description": "Payment card types",
                     "type": "string",
                     "enum": [
                         "credit",
@@ -2998,12 +2887,15 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "card-issuer": {
+                    "description": "Name of card issuer",
                     "type": "string"
                 },
                 "card-expiry-date": {
+                    "description": "Card expiry date in the format MM/YY",
                     "type": "string"
                 },
                 "card-image-url": {
+                    "description": "URL for payment card image",
                     "type": "string",
                     "x-nullable": true
                 }
@@ -3025,37 +2917,47 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "description": {
+                    "description": "Description of payment type offer",
                     "type": "string"
                 },
                 "image-url": {
+                    "description": "URL for offer image",
                     "type": "string",
                     "x-nullable": true
                 },
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "redemptions-allowed": {
+                    "description": "Number of allowed offer redemptions",
                     "type": "integer",
-                    "format": "int32"
+                    "format": "int64"
                 },
                 "discount-cents": {
+                    "description": "Offer discount value in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "created": {
+                    "description": "Offer creation timestamp",
                     "type": "string",
                     "format": "date-time"
                 },
                 "title": {
+                    "description": "Title of payment type offer",
                     "type": "string"
                 },
                 "is-active": {
+                    "description": "Indicate whether offer is active",
                     "type": "boolean"
                 },
                 "id": {
+                    "description": "UUID payment type offer identifier",
                     "type": "string"
                 },
                 "payment-type": {
+                    "description": "Payment card types",
                     "type": "string",
                     "enum": [
                         "credit",
@@ -3065,6 +2967,7 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "discount-pct": {
+                    "description": "Offer discount value as percentage",
                     "type": "integer",
                     "format": "int64"
                 }
@@ -3088,6 +2991,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 }
             },
@@ -3100,9 +3004,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 },
                 "items": {
+                    "description": "List of product items",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Item"
@@ -3115,31 +3021,11 @@ This end-point is for documentation purpose only.",
                 "items"
             ]
         },
-        "PoSState": {
-            "type": "object",
-            "properties": {
-                "status": {
-                    "type": "string",
-                    "enum": [
-                        "reconcile-total",
-                        "complete-transaction",
-                        "new",
-                        "initiate-payment",
-                        "complete-scan",
-                        "cancel-transaction",
-                        "ready-for-payment"
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "status"
-            ]
-        },
         "PoSStateResponse": {
             "type": "object",
             "properties": {
                 "status": {
+                    "description": "Internal states of a PoS",
                     "type": "string",
                     "enum": [
                         "reconcile-total",
@@ -3161,12 +3047,15 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 },
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "basket-state": {
+                    "description": "Internal states of a PoS",
                     "type": "string",
                     "enum": [
                         "reconcile-total",
@@ -3216,9 +3105,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "basket-state": {
@@ -3230,6 +3121,7 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "merchant-pos-label": {
+                    "description": "Descriptive label for merchant point-of-sale terminal",
                     "type": "string"
                 }
             },
@@ -3245,9 +3137,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "basket-state": {
@@ -3259,9 +3153,11 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "merchant-pos-id": {
+                    "description": "UUID merchant point-of-sale identifier",
                     "type": "string"
                 },
                 "receipt-id": {
+                    "description": "UUID of receipt",
                     "type": "string"
                 },
                 "payments": {
@@ -3285,9 +3181,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "basket-id": {
+                    "description": "UUID basket identifier",
                     "type": "string"
                 },
                 "basket-state": {
@@ -3365,7 +3263,7 @@ This end-point is for documentation purpose only.",
                 },
                 "redemptions-allowed": {
                     "type": "integer",
-                    "format": "int64"
+                    "format": "int32"
                 },
                 "discount-cents": {
                     "type": "integer",
@@ -3423,15 +3321,19 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "session-id": {
+                    "description": "UUID session identifier",
                     "type": "string"
                 },
                 "card-number": {
+                    "description": "Card number",
                     "type": "string"
                 },
                 "card-alias": {
+                    "description": "User defined alias for the card",
                     "type": "string"
                 },
                 "card-type": {
+                    "description": "Payment card types",
                     "type": "string",
                     "enum": [
                         "credit",
@@ -3441,18 +3343,23 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "card-issuer": {
+                    "description": "Name of card issuer",
                     "type": "string"
                 },
                 "card-pin": {
+                    "description": "Security PIN code",
                     "type": "string"
                 },
                 "card-expiry-date": {
+                    "description": "Card expiry date in the format MM/YY",
                     "type": "string"
                 },
                 "card-holder-zip": {
+                    "description": "ZIP code of card holder address",
                     "type": "string"
                 },
                 "card-holder-name": {
+                    "description": "Name of card holder",
                     "type": "string"
                 }
             },
@@ -3473,31 +3380,37 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "id": {
+                    "description": "UUID receipt identifier",
                     "type": "string"
                 },
                 "created": {
+                    "description": "Receipt creation timestamp",
                     "type": "string",
                     "format": "date-time"
                 },
                 "items": {
+                    "description": "Product items in the receipt",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ReceiptItem"
                     }
                 },
                 "offers": {
+                    "description": "Product discount offers in the receipt",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ProductOffer"
                     }
                 },
                 "payments": {
+                    "description": "Payment confirmations",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/PaymentConfirmation"
                     }
                 },
                 "total-summary": {
+                    "description": "Summary of receipt totals by payment",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/TotalSummary"
@@ -3518,16 +3431,20 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "sku": {
+                    "description": "Product SKU identifier",
                     "type": "string"
                 },
                 "name": {
+                    "description": "Product name",
                     "type": "string"
                 },
                 "qty": {
+                    "description": "Product quantity",
                     "type": "integer",
                     "format": "int64"
                 },
                 "price": {
+                    "description": "Product price in cents",
                     "type": "integer",
                     "format": "int64"
                 }
@@ -3559,25 +3476,31 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "sku": {
+                    "description": "Product SKU identifier",
                     "type": "string"
                 },
                 "total": {
+                    "description": "Total undiscounted price of item in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "discounted-total": {
+                    "description": "Price of item after applying discounts in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "tax": {
+                    "description": "Tax for item in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "discount-cents": {
+                    "description": "Item discount in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "discount-pct": {
+                    "description": "Item discount as percentage of price",
                     "type": "integer",
                     "format": "int64",
                     "x-nullable": true
@@ -3635,16 +3558,20 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "device-id": {
+                    "description": "Unique device identifier",
                     "type": "string"
                 },
                 "created": {
+                    "description": "Session creation timestamp",
                     "type": "string",
                     "format": "date-time"
                 },
                 "state": {
+                    "description": "Internal states of a session",
                     "type": "string",
                     "enum": [
                         "new",
@@ -3653,19 +3580,24 @@ This end-point is for documentation purpose only.",
                     ]
                 },
                 "merchant-auth-token": {
+                    "description": "Merchant authorization token",
                     "type": "string",
                     "x-nullable": true
                 },
                 "is-active": {
+                    "description": "Indicates whether session is still active",
                     "type": "boolean"
                 },
                 "token": {
+                    "description": "Authorization token for session",
                     "type": "string"
                 },
                 "id": {
+                    "description": "UUID session identifier",
                     "type": "string"
                 },
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string",
                     "x-nullable": true
                 }
@@ -3685,9 +3617,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string"
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 }
             },
@@ -3701,9 +3635,11 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string"
                 },
                 "payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string"
                 },
                 "default": {
@@ -3721,26 +3657,31 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "id": {
+                    "description": "UUID shopper identifier",
                     "type": "string"
                 },
                 "merchant-id": {
+                    "description": "UUID merchant identifier",
                     "type": "string"
                 },
                 "merchant-shopper-id": {
+                    "description": "Merchant shopper identifier",
                     "type": "string"
                 },
                 "wallet-id": {
+                    "description": "UUID wallet identifier",
                     "type": "string"
                 },
                 "default-payment-instrument-id": {
+                    "description": "UUID payment-instrument identifier",
                     "type": "string",
                     "x-nullable": true
                 },
                 "payment-instruments": {
+                    "description": "List of payment instrument identifiers",
                     "type": "array",
                     "items": {
-                        "type": "string",
-                        "x-nullable": true
+                        "type": "string"
                     }
                 }
             },
@@ -3772,6 +3713,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string"
                 },
                 "redeemed-points": {
@@ -3796,38 +3738,47 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "discounted-total": {
+                    "description": "Discounted value of basket in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "product-offer-cents": {
+                    "description": "Total product offers in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "payment-offer-cents": {
+                    "description": "Total payment type offers in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "discount-cents": {
+                    "description": "Total discount value in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "tax": {
+                    "description": "Total tax for basket value in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "loyalty-cents": {
+                    "description": "Converted value of loyalty points in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "payment-total": {
+                    "description": "Payment total (discounted-value + tax) in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "total": {
+                    "description": "Total undiscounted value of basket in cents",
                     "type": "integer",
                     "format": "int64"
                 },
                 "discount-pct": {
+                    "description": "Total discount value as percentage",
                     "type": "integer",
                     "format": "int64",
                     "x-nullable": true
@@ -3850,6 +3801,7 @@ This end-point is for documentation purpose only.",
             "type": "object",
             "properties": {
                 "shopper-id": {
+                    "description": "UUID shopper identifier",
                     "type": "string"
                 },
                 "accrued-points": {
