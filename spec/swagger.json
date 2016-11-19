@@ -2,13 +2,15 @@
     "swagger": "2.0",
     "info": {
         "title": "OmnyPay Platform Service API",
-        "version": "0.0.145",
-        "description": "REST API for the OmnyPay Platform Service\n# Introduction\nSee [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)",
+        "version": "0.0.146",
+        "description": "REST API for the OmnyPay Platform Service
+# Introduction
+See [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)",
         "contact": {
             "email": "info@omnypay.net"
         },
         "x-logo": {
-          "url": "https://static1.squarespace.com/static/54ae3170e4b0afa8bbd35870/t/56391607e4b043f85da73860/1446581767889/omnypay+logo.png"
+            "url": "https://static1.squarespace.com/static/54ae3170e4b0afa8bbd35870/t/56391607e4b043f85da73860/1446581767889/omnypay+logo.png"
         }
     },
     "produces": [
@@ -1142,8 +1144,7 @@
                     },
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/PaymentInstrumentInfo",
-                            "x-nullable": true
+                            "$ref": "#/definitions/PaymentInstrumentInfo"
                         },
                         "description": ""
                     }
@@ -2212,30 +2213,42 @@ This end-point is for documentation purpose only.",
                         "error"
                     ]
                 },
+                "error": {
+                    "type": "string",
+                    "enum": [
+                        "bad-request"
+                    ]
+                },
                 "errors": {
-                    "$ref": "#/definitions/BadRequestBodyErrors"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BadRequestBodyErrors"
+                    }
                 }
             },
             "additionalProperties": false,
             "required": [
                 "status",
+                "error",
                 "errors"
             ]
         },
         "BadRequestBodyErrors": {
             "type": "object",
             "properties": {
-                "id": {
+                "param": {
+                    "description": "Name of parameter which has failed validation",
                     "type": "string"
                 },
-                "message": {
+                "error": {
+                    "description": "Validation error ID",
                     "type": "string"
                 }
             },
             "additionalProperties": false,
             "required": [
-                "id",
-                "message"
+                "param",
+                "error"
             ]
         },
         "Basket": {
@@ -2274,16 +2287,14 @@ This end-point is for documentation purpose only.",
                     "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ProductOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ProductOffer"
                     }
                 },
                 "reconciled-total": {
                     "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ReconciledTotal",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ReconciledTotal"
                     }
                 }
             },
@@ -2380,8 +2391,7 @@ This end-point is for documentation purpose only.",
                     "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ProductOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ProductOffer"
                     }
                 },
                 "payment-instrument-id": {
@@ -2417,8 +2427,7 @@ This end-point is for documentation purpose only.",
                     "description": "List of payment type offers",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/PaymentTypeOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/PaymentTypeOffer"
                     }
                 },
                 "items": {
@@ -2432,8 +2441,7 @@ This end-point is for documentation purpose only.",
                     "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ReconciledTotal",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ReconciledTotal"
                     }
                 }
             },
@@ -2457,8 +2465,7 @@ This end-point is for documentation purpose only.",
                     "description": "Product discount offers to be applied",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ProductOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ProductOffer"
                     }
                 },
                 "payment-instrument-id": {
@@ -2497,16 +2504,14 @@ This end-point is for documentation purpose only.",
                     "description": "List of merchant offers",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/MerchantOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/MerchantOffer"
                     }
                 },
                 "payment-type-offers": {
                     "description": "List of payment type offers",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/PaymentTypeOffer",
-                        "x-nullable": true
+                        "$ref": "#/definitions/PaymentTypeOffer"
                     }
                 },
                 "items": {
@@ -2520,8 +2525,7 @@ This end-point is for documentation purpose only.",
                     "description": "Line item totals after applying discounts and tax",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ReconciledTotal",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ReconciledTotal"
                     }
                 }
             },
@@ -2590,8 +2594,7 @@ This end-point is for documentation purpose only.",
                     "type": "string"
                 },
                 "config": {
-                    "$ref": "#/definitions/Config",
-                    "x-nullable": true
+                    "$ref": "#/definitions/Config"
                 }
             },
             "additionalProperties": false,
@@ -3066,13 +3069,11 @@ This end-point is for documentation purpose only.",
                 "reconciled-total": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ReconciledTotal",
-                        "x-nullable": true
+                        "$ref": "#/definitions/ReconciledTotal"
                     }
                 },
                 "total-summary": {
-                    "$ref": "#/definitions/TotalSummary",
-                    "x-nullable": true
+                    "$ref": "#/definitions/TotalSummary"
                 },
                 "receipt-id": {
                     "type": "string",
@@ -3081,8 +3082,7 @@ This end-point is for documentation purpose only.",
                 "payments": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/PaymentConfirmation",
-                        "x-nullable": true
+                        "$ref": "#/definitions/PaymentConfirmation"
                     }
                 }
             },
