@@ -1,0 +1,3808 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OmnyPay Platform Service API",
+    "version": "0.0.146",
+    "description": "REST API for the OmnyPay Platform Service\n# Introduction\nSee [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)",
+    "contact": {
+      "email": "info@omnypay.net"
+    },
+    "x-logo": {
+      "url": "https://static1.squarespace.com/static/54ae3170e4b0afa8bbd35870/t/56391607e4b043f85da73860/1446581767889/omnypay+logo.png"
+    }
+  },
+  "produces": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "consumes": [
+    "application/json",
+    "application/x-yaml",
+    "application/edn",
+    "application/transit+json",
+    "application/transit+msgpack"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/client/session": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Create a new Session",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Session"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Client",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "operationId": "createSession"
+      }
+    },
+    "/client/session/{session-id}": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Lookup an Active Session",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Session"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getSession",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/session/history/{session-id}": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Debug a Session",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getSessionHistory",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/session/authenticate-shopper": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Add an authenticated shopper to the specified Session",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AuthenticatedSession"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AuthenticatedShopper",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthenticatedShopper"
+            }
+          }
+        ],
+        "operationId": "addAuthenticatedShopper"
+      }
+    },
+    "/client/shopper/{shopper-id}": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Lookup a Shopper",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Shopper"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getShopper",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shopper-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/shopper/{shopper-id}/payment-instruments": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Get Payment Instruments for given Shopper",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PaymentInstrumentOffers"
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getShopperPaymentInstruments",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shopper-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/shopper/default-payment-instrument": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Set the Default Payment Instrument for a Shopper",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/SetDefaultPaymentInstrumentValue"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "SetDefaultPaymentInstrumentParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetDefaultPaymentInstrumentParam"
+            }
+          }
+        ],
+        "operationId": "setDefaultPaymentInstrument"
+      }
+    },
+    "/client/shopper/{shopper-id}/receipts": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Find all receipts for a Shopper",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Receipts"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getShopperReceipts",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shopper-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/shopper/{shopper-id}/loyalty": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Lookup Loyalty Points for Shopper",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/ShopperLoyalty"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getShopperLoyaltyPoints",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shopper-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/shopper/loyalty": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Update Available Points and Conversion Rate",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/ShopperLoyalty"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UpdateShopperLoyaltyParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateShopperLoyaltyParam"
+            }
+          }
+        ],
+        "operationId": "updateShopperLoyaltyPoints"
+      }
+    },
+    "/client/basket": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Create a new Basket",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Basket"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateBasketParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBasketParam"
+            }
+          }
+        ],
+        "operationId": "createBasket"
+      }
+    },
+    "/client/basket/associate-pos": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Associate Basket to POS",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/MerchantPoS"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "BasketPoS",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BasketPoS"
+            }
+          }
+        ],
+        "operationId": "associateBasketPoS"
+      }
+    },
+    "/client/basket/{basket-id}": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Lookup items and offers for given basket-id",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Basket"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getBasket",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "basket-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/basket/{basket-id}/receipt": {
+      "get": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Lookup basket and receipt for given basket-id",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/BasketReceipt"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getBasketReceipt",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "basket-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/client/payment-preview": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Preview a basket for specified Payment Instrument",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/BasketPreview"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "BasketPayment",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BasketPayment"
+            }
+          }
+        ],
+        "operationId": "previewBasketPayment"
+      }
+    },
+    "/client/payment": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Make payment for a basket with specified Payment Instrument",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/BasketPaymentConfirmation"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "BasketPayment",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BasketPayment"
+            }
+          }
+        ],
+        "operationId": "applyBasketPayment"
+      }
+    },
+    "/client/basket/loyalty": {
+      "post": {
+        "tags": [
+          "client"
+        ],
+        "summary": "Get current basket state",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Basket"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "BasketLoyaltyPoints",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BasketLoyaltyPoints"
+            }
+          }
+        ],
+        "operationId": "applyBasketLoyaltyPoints"
+      }
+    },
+    "/identity/account": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Create a merchant shopper account",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/ShopperAccount"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateShopperAccountParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateShopperAccountParam"
+            }
+          }
+        ],
+        "operationId": "createAccount"
+      }
+    },
+    "/identity/authentication": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Authenticate a merchant shopper-id",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Authentication"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AuthenticationRequestParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthenticationRequestParam"
+            }
+          }
+        ],
+        "operationId": "authenticate"
+      }
+    },
+    "/identity/authentication/{auth-token}": {
+      "delete": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Revoke an auth-token",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "revokeAuthentication",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "auth-token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/wallet/provision-payment-instrument": {
+      "post": {
+        "tags": [
+          "wallet"
+        ],
+        "summary": "Provision a new payment instrument",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PaymentInstrumentInfo"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ProvisionCardParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProvisionCardParam"
+            }
+          }
+        ],
+        "operationId": "provisionPaymentInstrument"
+      }
+    },
+    "/management/merchant": {
+      "post": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Create a merchant",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateMerchantParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMerchantParam"
+            }
+          }
+        ],
+        "operationId": "createMerchant"
+      }
+    },
+    "/management/merchant/{merchant-id}": {
+      "get": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Lookup a merchant by merchant-id",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getMerchant",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/management/merchant/name/{merchant-name}": {
+      "get": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Lookup a merchant by merchant-name",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Merchant"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "lookupMerchantByName",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-name",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/management/pos-terminal": {
+      "post": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Create a Point of Sale Terminal",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSTerminal"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreatePoSTerminalParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePoSTerminalParam"
+            }
+          }
+        ],
+        "operationId": "createPoSTerminal"
+      }
+    },
+    "/management/pos-terminal/{pos-terminal-id}": {
+      "get": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Lookup a Point of Sale terminal by pos-id",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSTerminal"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "getPoSTerminal",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pos-terminal-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/management/payment-instrument": {
+      "post": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Add metadata for payment-instrument card types",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PaymentInstrumentInfo"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreatePaymentInstrumentParam",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePaymentInstrumentParam"
+            }
+          }
+        ],
+        "operationId": "createPaymentInstrument"
+      }
+    },
+    "/management/payment-instrument/{merchant-id}/{card-type}": {
+      "get": {
+        "tags": [
+          "management"
+        ],
+        "summary": "Lookup Payment Instrument Metadata for a card-type",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PaymentInstrumentInfo",
+              "x-nullable": true
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "operationId": "lookupPaymentInstrumentByType",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "card-type",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/pos/update-basket": {
+      "post": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Cumulative Basket update",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStateResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PoSItems",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PoSItems"
+            }
+          }
+        ],
+        "x-no-doc": null
+      }
+    },
+    "/pos/complete-scan": {
+      "post": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Complete scanning all items. Once this is called, the Total will be reconciled",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStateResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PoSInfo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PoSInfo"
+            }
+          }
+        ],
+        "x-no-doc": null
+      }
+    },
+    "/pos/status/{merchant-pos-id}": {
+      "get": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Get current Transaction status",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStatus"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "x-no-doc": null,
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-pos-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/pos/ready-for-payment": {
+      "post": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Ready for Payment notifies Client Service that payments can be made",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStateResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PoSInfo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PoSInfo"
+            }
+          }
+        ],
+        "x-no-doc": null
+      }
+    },
+    "/pos/cancel-transaction": {
+      "post": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Cancel current Transaction. Resets Basket state",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStateResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PoSInfo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PoSInfo"
+            }
+          }
+        ],
+        "x-no-doc": null
+      }
+    },
+    "/pos/notification/associate-basket/{merchant-pos-id}": {
+      "get": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Notification when basket associates with point-of-sale terminal",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStatusAssociateBasket"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "x-no-doc": null,
+        "description": "This documents the structure of the notification message which is delivered after a basket is associated with a point-of-sale terminal.\n\nThis end-point is for documentation purpose only.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-pos-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/pos/notification/reconcile-total/{merchant-pos-id}": {
+      "get": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Notification when basket has reconciled totals",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStatusReconcileTotal"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "x-no-doc": null,
+        "description": "This documents the structure of the notification message which is delivered after a basket has reconciled total payment amount after applying discount offers, rewards and loyalty points.\n\nThis end-point is for documentation purpose only.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-pos-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/pos/notification/complete-transaction/{merchant-pos-id}": {
+      "get": {
+        "tags": [
+          "pos"
+        ],
+        "summary": "Notification when basket has completed payment transaction",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/PoSStatusCompleteTransaction"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "x-no-doc": null,
+        "description": "This documents the structure of the notification message which is delivered after a basket completes the payment transaction and passes the final receipt.\n\nThis end-point is for documentation purpose only.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-pos-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/offer/payment-type": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Add a payment instrument offer",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AddOfferResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AddPaymentTypeOffer",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddPaymentTypeOffer"
+            }
+          }
+        ]
+      }
+    },
+    "/offer/sku": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Add a product offer",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AddOfferResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AddProductOffer",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProductOffer"
+            }
+          }
+        ]
+      }
+    },
+    "/offer/reward": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Add a purchase reward",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AddRewardResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AddReward",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddReward"
+            }
+          }
+        ]
+      }
+    },
+    "/offer/merchant-offer": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Add a merchant offer",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AddMerchantOfferResponse"
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AddMerchantOffer",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddMerchantOffer"
+            }
+          }
+        ]
+      }
+    },
+    "/offer/sku/{merchant-id}": {
+      "get": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Find all product offers",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductOffer"
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/offer/payment-type/{merchant-id}": {
+      "get": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Find all payment instrument offers",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PaymentTypeOffer"
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/offer/reward/{merchant-id}": {
+      "get": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Find all rewards",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reward"
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/offer/merchant-offer/{merchant-id}": {
+      "get": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "Find all merchant offers for a merchant",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MerchantOffer"
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/BadRequestBody"
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "merchant-id",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddMerchantOffer": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "offer": {
+          "type": "string"
+        },
+        "image-url": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "title",
+        "description",
+        "offer",
+        "image-url"
+      ]
+    },
+    "AddMerchantOfferResponse": {
+      "type": "object",
+      "properties": {
+        "offer-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "offer-id"
+      ]
+    },
+    "AddOfferResponse": {
+      "type": "object",
+      "properties": {
+        "offer-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "offer-id"
+      ]
+    },
+    "AddPaymentTypeOffer": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "payment-type": {
+          "description": "Payment card types",
+          "type": "string",
+          "enum": [
+            "credit",
+            "charge-card",
+            "gift-card",
+            "debit"
+          ]
+        },
+        "discount-pct": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-cents": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "redemptions-allowed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "image-url": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "title",
+        "description",
+        "payment-type",
+        "discount-pct",
+        "discount-cents",
+        "redemptions-allowed",
+        "image-url"
+      ]
+    },
+    "AddProductOffer": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "discount-pct": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-cents": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "redemptions-allowed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "image-url": {
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "title",
+        "description",
+        "sku",
+        "discount-pct",
+        "discount-cents",
+        "redemptions-allowed",
+        "image-url"
+      ]
+    },
+    "AddReward": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "title",
+        "description",
+        "points"
+      ]
+    },
+    "AddRewardResponse": {
+      "type": "object",
+      "properties": {
+        "reward-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "reward-id"
+      ]
+    },
+    "AuthenticatedSession": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "device-id": {
+          "description": "Unique device identifier",
+          "type": "string"
+        },
+        "created": {
+          "description": "Session creation timestamp",
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "description": "Internal states of a session",
+          "type": "string",
+          "enum": [
+            "new",
+            "reset",
+            "authenticated"
+          ]
+        },
+        "merchant-auth-token": {
+          "description": "Merchant authorization token",
+          "type": "string",
+          "x-nullable": true
+        },
+        "is-active": {
+          "description": "Indicates whether session is still active",
+          "type": "boolean"
+        },
+        "token": {
+          "description": "Authorization token for session",
+          "type": "string"
+        },
+        "id": {
+          "description": "UUID session identifier",
+          "type": "string"
+        },
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "device-id",
+        "created",
+        "state",
+        "merchant-auth-token",
+        "is-active",
+        "token",
+        "id",
+        "shopper-id"
+      ]
+    },
+    "AuthenticatedShopper": {
+      "type": "object",
+      "properties": {
+        "session-id": {
+          "description": "UUID session identifier",
+          "type": "string"
+        },
+        "merchant-shopper-id": {
+          "description": "Merchant shopper identifier",
+          "type": "string"
+        },
+        "merchant-auth-token": {
+          "description": "Merchant authorization token",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "session-id",
+        "merchant-shopper-id",
+        "merchant-auth-token"
+      ]
+    },
+    "Authentication": {
+      "type": "object",
+      "properties": {
+        "merchant-shopper-id": {
+          "type": "string"
+        },
+        "merchant-auth-token": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-shopper-id",
+        "merchant-auth-token"
+      ]
+    },
+    "AuthenticationRequestParam": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "username",
+        "password"
+      ]
+    },
+    "BadRequestBody": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "error"
+          ]
+        },
+        "error": {
+          "type": "string",
+          "enum": [
+            "bad-request"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BadRequestBodyErrors"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "error",
+        "errors"
+      ]
+    },
+    "BadRequestBodyErrors": {
+      "type": "object",
+      "properties": {
+        "param": {
+          "description": "Name of parameter which has failed validation",
+          "type": "string"
+        },
+        "error": {
+          "description": "Validation error ID",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "param",
+        "error"
+      ]
+    },
+    "Basket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "state": {
+          "description": "Internal states of a basket",
+          "type": "string",
+          "enum": [
+            "complete-transaction",
+            "new",
+            "initiate-payment",
+            "complete-scan",
+            "cancel-transaction",
+            "ready-for-payment"
+          ]
+        },
+        "loyalty-points": {
+          "description": "Loyalty points to be redeemed",
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        },
+        "items": {
+          "description": "Product items in the basket",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "offers": {
+          "description": "Product discount offers to be applied",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOffer"
+          }
+        },
+        "reconciled-total": {
+          "description": "Line item totals after applying discounts and tax",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciledTotal"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "state",
+        "loyalty-points",
+        "items",
+        "offers",
+        "reconciled-total"
+      ]
+    },
+    "BasketLoyaltyPoints": {
+      "type": "object",
+      "properties": {
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "basket-id",
+        "points"
+      ]
+    },
+    "BasketPayment": {
+      "type": "object",
+      "properties": {
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "basket-id",
+        "payment-instrument-id"
+      ]
+    },
+    "BasketPaymentConfirmation": {
+      "type": "object",
+      "properties": {
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "error",
+            "ok"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "basket-id",
+        "status"
+      ]
+    },
+    "BasketPoS": {
+      "type": "object",
+      "properties": {
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "basket-id",
+        "merchant-pos-id"
+      ]
+    },
+    "BasketPreview": {
+      "type": "object",
+      "properties": {
+        "offers": {
+          "description": "Product discount offers to be applied",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOffer"
+          }
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        },
+        "total-summary": {
+          "$ref": "#/definitions/TotalSummary"
+        },
+        "state": {
+          "description": "Internal states of a basket",
+          "type": "string",
+          "enum": [
+            "complete-transaction",
+            "new",
+            "initiate-payment",
+            "complete-scan",
+            "cancel-transaction",
+            "ready-for-payment"
+          ]
+        },
+        "loyalty-points": {
+          "description": "Loyalty points to be redeemed",
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        },
+        "id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "payment-type-offers": {
+          "description": "List of payment type offers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentTypeOffer"
+          }
+        },
+        "items": {
+          "description": "Product items in the basket",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "reconciled-total": {
+          "description": "Line item totals after applying discounts and tax",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciledTotal"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "offers",
+        "payment-instrument-id",
+        "total-summary",
+        "state",
+        "loyalty-points",
+        "id",
+        "payment-type-offers",
+        "items",
+        "reconciled-total"
+      ]
+    },
+    "BasketReceipt": {
+      "type": "object",
+      "properties": {
+        "offers": {
+          "description": "Product discount offers to be applied",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOffer"
+          }
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        },
+        "receipt": {
+          "$ref": "#/definitions/Receipt"
+        },
+        "total-summary": {
+          "$ref": "#/definitions/TotalSummary"
+        },
+        "state": {
+          "description": "Internal states of a basket",
+          "type": "string",
+          "enum": [
+            "complete-transaction",
+            "new",
+            "initiate-payment",
+            "complete-scan",
+            "cancel-transaction",
+            "ready-for-payment"
+          ]
+        },
+        "loyalty-points": {
+          "description": "Loyalty points to be redeemed",
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        },
+        "id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "merchant-offers": {
+          "description": "List of merchant offers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MerchantOffer"
+          }
+        },
+        "payment-type-offers": {
+          "description": "List of payment type offers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentTypeOffer"
+          }
+        },
+        "items": {
+          "description": "Product items in the basket",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "reconciled-total": {
+          "description": "Line item totals after applying discounts and tax",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciledTotal"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "offers",
+        "payment-instrument-id",
+        "receipt",
+        "total-summary",
+        "state",
+        "loyalty-points",
+        "id",
+        "merchant-offers",
+        "payment-type-offers",
+        "items",
+        "reconciled-total"
+      ]
+    },
+    "Client": {
+      "type": "object",
+      "properties": {
+        "device-id": {
+          "description": "Unique device identifier",
+          "type": "string"
+        },
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "device-id",
+        "merchant-id"
+      ]
+    },
+    "Config": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "$ref": "#/definitions/ProvidersConfig"
+        },
+        "loyalty": {
+          "$ref": "#/definitions/LoyaltyConfig"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CreateBasketParam": {
+      "type": "object",
+      "properties": {
+        "session-id": {
+          "description": "UUID session identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "session-id"
+      ]
+    },
+    "CreateMerchantParam": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/Config"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ]
+    },
+    "CreatePaymentInstrumentParam": {
+      "type": "object",
+      "properties": {
+        "card-type": {
+          "description": "Payment card types",
+          "type": "string",
+          "enum": [
+            "credit",
+            "charge-card",
+            "gift-card",
+            "debit"
+          ]
+        },
+        "image-url": {
+          "description": "URL for payment card image",
+          "type": "string",
+          "x-nullable": true
+        },
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "card-type",
+        "image-url",
+        "merchant-id"
+      ]
+    },
+    "CreatePoSTerminalParam": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "merchant-id": {
+          "type": "string"
+        },
+        "merchant-pos-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "merchant-id",
+        "merchant-pos-id"
+      ]
+    },
+    "CreateShopperAccountParam": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "loyalty-points": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "username",
+        "password"
+      ]
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "sku": {
+          "description": "Product SKU identifier",
+          "type": "string"
+        },
+        "name": {
+          "description": "Product name",
+          "type": "string"
+        },
+        "qty": {
+          "description": "Product quantity",
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "description": "Product price in cents",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sku",
+        "name",
+        "qty",
+        "price"
+      ]
+    },
+    "LoyaltyConfig": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "conversion": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Merchant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "is-active": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "config": {
+          "$ref": "#/definitions/Config",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "is-active",
+        "created",
+        "modified"
+      ]
+    },
+    "MerchantOffer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "offer": {
+          "type": "string"
+        },
+        "is-active": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "merchant-id",
+        "title",
+        "description",
+        "offer",
+        "is-active",
+        "created"
+      ]
+    },
+    "MerchantPoS": {
+      "type": "object",
+      "properties": {
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        },
+        "merchant-pos-label": {
+          "description": "Descriptive label for merchant point-of-sale terminal",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-pos-id",
+        "merchant-pos-label"
+      ]
+    },
+    "PaymentConfirmation": {
+      "type": "object",
+      "properties": {
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        },
+        "amount": {
+          "description": "Payment amount in cents",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "payment-instrument-id",
+        "amount"
+      ]
+    },
+    "PaymentInstrumentInfo": {
+      "type": "object",
+      "properties": {
+        "wallet-id": {
+          "description": "UUID wallet identifier",
+          "type": "string"
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "wallet-id",
+        "payment-instrument-id"
+      ]
+    },
+    "PaymentInstrumentOffers": {
+      "type": "object",
+      "properties": {
+        "offers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentTypeOffer"
+          }
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        },
+        "card-number": {
+          "description": "Card number",
+          "type": "string"
+        },
+        "card-alias": {
+          "description": "User defined alias for the card",
+          "type": "string"
+        },
+        "default": {
+          "description": "True if this is the default payment instrument",
+          "type": "boolean"
+        },
+        "card-type": {
+          "description": "Payment card types",
+          "type": "string",
+          "enum": [
+            "credit",
+            "charge-card",
+            "gift-card",
+            "debit"
+          ]
+        },
+        "card-issuer": {
+          "description": "Name of card issuer",
+          "type": "string"
+        },
+        "card-expiry-date": {
+          "description": "Card expiry date in the format MM/YY",
+          "type": "string"
+        },
+        "card-image-url": {
+          "description": "URL for payment card image",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "offers",
+        "payment-instrument-id",
+        "card-number",
+        "card-alias",
+        "default",
+        "card-type",
+        "card-issuer",
+        "card-expiry-date",
+        "card-image-url"
+      ]
+    },
+    "PaymentTypeOffer": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "description": "Description of payment type offer",
+          "type": "string"
+        },
+        "image-url": {
+          "description": "URL for offer image",
+          "type": "string",
+          "x-nullable": true
+        },
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "redemptions-allowed": {
+          "description": "Number of allowed offer redemptions",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-cents": {
+          "description": "Offer discount value in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "created": {
+          "description": "Offer creation timestamp",
+          "type": "string",
+          "format": "date-time"
+        },
+        "title": {
+          "description": "Title of payment type offer",
+          "type": "string"
+        },
+        "is-active": {
+          "description": "Indicate whether offer is active",
+          "type": "boolean"
+        },
+        "id": {
+          "description": "UUID payment type offer identifier",
+          "type": "string"
+        },
+        "payment-type": {
+          "description": "Payment card types",
+          "type": "string",
+          "enum": [
+            "credit",
+            "charge-card",
+            "gift-card",
+            "debit"
+          ]
+        },
+        "discount-pct": {
+          "description": "Offer discount value as percentage",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "image-url",
+        "merchant-id",
+        "redemptions-allowed",
+        "discount-cents",
+        "created",
+        "title",
+        "is-active",
+        "id",
+        "payment-type",
+        "discount-pct"
+      ]
+    },
+    "PoSInfo": {
+      "type": "object",
+      "properties": {
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-pos-id"
+      ]
+    },
+    "PoSItems": {
+      "type": "object",
+      "properties": {
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        },
+        "items": {
+          "description": "List of product items",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-pos-id",
+        "items"
+      ]
+    },
+    "PoSStateResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Internal states of a PoS",
+          "type": "string",
+          "enum": [
+            "reconcile-total",
+            "complete-transaction",
+            "new",
+            "initiate-payment",
+            "complete-scan",
+            "cancel-transaction",
+            "ready-for-payment"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ]
+    },
+    "PoSStatus": {
+      "type": "object",
+      "properties": {
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        },
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "basket-state": {
+          "description": "Internal states of a PoS",
+          "type": "string",
+          "enum": [
+            "reconcile-total",
+            "complete-transaction",
+            "new",
+            "initiate-payment",
+            "complete-scan",
+            "cancel-transaction",
+            "ready-for-payment"
+          ]
+        },
+        "reconciled-total": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciledTotal"
+          }
+        },
+        "total-summary": {
+          "$ref": "#/definitions/TotalSummary"
+        },
+        "receipt-id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentConfirmation"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-pos-id",
+        "basket-id",
+        "basket-state",
+        "reconciled-total",
+        "total-summary",
+        "receipt-id",
+        "payments"
+      ]
+    },
+    "PoSStatusAssociateBasket": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "basket-state": {
+          "type": "string",
+          "enum": [
+            "associate-basket",
+            "reconcile-total",
+            "complete-transaction"
+          ]
+        },
+        "merchant-pos-label": {
+          "description": "Descriptive label for merchant point-of-sale terminal",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "basket-id",
+        "basket-state",
+        "merchant-pos-label"
+      ]
+    },
+    "PoSStatusCompleteTransaction": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "basket-state": {
+          "type": "string",
+          "enum": [
+            "associate-basket",
+            "reconcile-total",
+            "complete-transaction"
+          ]
+        },
+        "merchant-pos-id": {
+          "description": "UUID merchant point-of-sale identifier",
+          "type": "string"
+        },
+        "receipt-id": {
+          "description": "UUID of receipt",
+          "type": "string"
+        },
+        "payments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentConfirmation"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "basket-id",
+        "basket-state",
+        "merchant-pos-id",
+        "receipt-id",
+        "payments"
+      ]
+    },
+    "PoSStatusReconcileTotal": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "basket-id": {
+          "description": "UUID basket identifier",
+          "type": "string"
+        },
+        "basket-state": {
+          "type": "string",
+          "enum": [
+            "associate-basket",
+            "reconcile-total",
+            "complete-transaction"
+          ]
+        },
+        "reconciled-total": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciledTotal"
+          }
+        },
+        "total-summary": {
+          "$ref": "#/definitions/TotalSummary"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "basket-id",
+        "basket-state",
+        "reconciled-total",
+        "total-summary"
+      ]
+    },
+    "PoSTerminal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "is-active": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "label": {
+          "type": "string"
+        },
+        "merchant-id": {
+          "type": "string"
+        },
+        "merchant-pos-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "is-active",
+        "created",
+        "label",
+        "merchant-id",
+        "merchant-pos-id"
+      ]
+    },
+    "ProductOffer": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "image-url": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "merchant-id": {
+          "type": "string"
+        },
+        "redemptions-allowed": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "discount-cents": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "title": {
+          "type": "string"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "is-active": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "discount-pct": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "image-url",
+        "merchant-id",
+        "redemptions-allowed",
+        "discount-cents",
+        "created",
+        "title",
+        "sku",
+        "is-active",
+        "id",
+        "discount-pct"
+      ]
+    },
+    "ProvidersConfig": {
+      "type": "object",
+      "properties": {
+        "vault": {
+          "type": "string"
+        },
+        "payment": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProvisionCardParam": {
+      "type": "object",
+      "properties": {
+        "session-id": {
+          "description": "UUID session identifier",
+          "type": "string"
+        },
+        "card-number": {
+          "description": "Card number",
+          "type": "string"
+        },
+        "card-alias": {
+          "description": "User defined alias for the card",
+          "type": "string"
+        },
+        "card-type": {
+          "description": "Payment card types",
+          "type": "string",
+          "enum": [
+            "credit",
+            "charge-card",
+            "gift-card",
+            "debit"
+          ]
+        },
+        "card-issuer": {
+          "description": "Name of card issuer",
+          "type": "string"
+        },
+        "card-pin": {
+          "description": "Security PIN code",
+          "type": "string"
+        },
+        "card-expiry-date": {
+          "description": "Card expiry date in the format MM/YY",
+          "type": "string"
+        },
+        "card-holder-zip": {
+          "description": "ZIP code of card holder address",
+          "type": "string"
+        },
+        "card-holder-name": {
+          "description": "Name of card holder",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "session-id",
+        "card-number",
+        "card-alias",
+        "card-type",
+        "card-issuer",
+        "card-pin",
+        "card-expiry-date",
+        "card-holder-zip",
+        "card-holder-name"
+      ]
+    },
+    "Receipt": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID receipt identifier",
+          "type": "string"
+        },
+        "created": {
+          "description": "Receipt creation timestamp",
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "description": "Product items in the receipt",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReceiptItem"
+          }
+        },
+        "offers": {
+          "description": "Product discount offers in the receipt",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOffer"
+          }
+        },
+        "payments": {
+          "description": "Payment confirmations",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentConfirmation"
+          }
+        },
+        "total-summary": {
+          "description": "Summary of receipt totals by payment",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TotalSummary"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "items",
+        "offers",
+        "payments",
+        "total-summary"
+      ]
+    },
+    "ReceiptItem": {
+      "type": "object",
+      "properties": {
+        "sku": {
+          "description": "Product SKU identifier",
+          "type": "string"
+        },
+        "name": {
+          "description": "Product name",
+          "type": "string"
+        },
+        "qty": {
+          "description": "Product quantity",
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "description": "Product price in cents",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sku",
+        "name",
+        "qty",
+        "price"
+      ]
+    },
+    "Receipts": {
+      "type": "object",
+      "properties": {
+        "receipts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Receipt"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "receipts"
+      ]
+    },
+    "ReconciledTotal": {
+      "type": "object",
+      "properties": {
+        "sku": {
+          "description": "Product SKU identifier",
+          "type": "string"
+        },
+        "total": {
+          "description": "Total undiscounted price of item in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discounted-total": {
+          "description": "Price of item after applying discounts in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "tax": {
+          "description": "Tax for item in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-cents": {
+          "description": "Item discount in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-pct": {
+          "description": "Item discount as percentage of price",
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sku",
+        "total",
+        "discounted-total",
+        "tax",
+        "discount-cents",
+        "discount-pct"
+      ]
+    },
+    "Reward": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "merchant-id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is-active": {
+          "type": "boolean"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "merchant-id",
+        "title",
+        "description",
+        "points",
+        "is-active",
+        "created"
+      ]
+    },
+    "Session": {
+      "type": "object",
+      "properties": {
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "device-id": {
+          "description": "Unique device identifier",
+          "type": "string"
+        },
+        "created": {
+          "description": "Session creation timestamp",
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "description": "Internal states of a session",
+          "type": "string",
+          "enum": [
+            "new",
+            "reset",
+            "authenticated"
+          ]
+        },
+        "merchant-auth-token": {
+          "description": "Merchant authorization token",
+          "type": "string",
+          "x-nullable": true
+        },
+        "is-active": {
+          "description": "Indicates whether session is still active",
+          "type": "boolean"
+        },
+        "token": {
+          "description": "Authorization token for session",
+          "type": "string"
+        },
+        "id": {
+          "description": "UUID session identifier",
+          "type": "string"
+        },
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "merchant-id",
+        "device-id",
+        "created",
+        "state",
+        "is-active",
+        "token",
+        "id"
+      ]
+    },
+    "SetDefaultPaymentInstrumentParam": {
+      "type": "object",
+      "properties": {
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string"
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shopper-id",
+        "payment-instrument-id"
+      ]
+    },
+    "SetDefaultPaymentInstrumentValue": {
+      "type": "object",
+      "properties": {
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string"
+        },
+        "payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shopper-id",
+        "payment-instrument-id",
+        "default"
+      ]
+    },
+    "Shopper": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID shopper identifier",
+          "type": "string"
+        },
+        "merchant-id": {
+          "description": "UUID merchant identifier",
+          "type": "string"
+        },
+        "merchant-shopper-id": {
+          "description": "Merchant shopper identifier",
+          "type": "string"
+        },
+        "wallet-id": {
+          "description": "UUID wallet identifier",
+          "type": "string"
+        },
+        "default-payment-instrument-id": {
+          "description": "UUID payment-instrument identifier",
+          "type": "string",
+          "x-nullable": true
+        },
+        "payment-instruments": {
+          "description": "List of payment instrument identifiers",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "merchant-id",
+        "merchant-shopper-id",
+        "wallet-id"
+      ]
+    },
+    "ShopperAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "merchant-id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "merchant-id"
+      ]
+    },
+    "ShopperLoyalty": {
+      "type": "object",
+      "properties": {
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string"
+        },
+        "redeemed-points": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        },
+        "accrued-points": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shopper-id",
+        "redeemed-points",
+        "accrued-points"
+      ]
+    },
+    "TotalSummary": {
+      "type": "object",
+      "properties": {
+        "discounted-total": {
+          "description": "Discounted value of basket in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "product-offer-cents": {
+          "description": "Total product offers in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment-offer-cents": {
+          "description": "Total payment type offers in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-cents": {
+          "description": "Total discount value in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "tax": {
+          "description": "Total tax for basket value in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "loyalty-cents": {
+          "description": "Converted value of loyalty points in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment-total": {
+          "description": "Payment total (discounted-value + tax) in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "description": "Total undiscounted value of basket in cents",
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount-pct": {
+          "description": "Total discount value as percentage",
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "discounted-total",
+        "product-offer-cents",
+        "payment-offer-cents",
+        "discount-cents",
+        "tax",
+        "loyalty-cents",
+        "payment-total",
+        "total",
+        "discount-pct"
+      ]
+    },
+    "UpdateShopperLoyaltyParam": {
+      "type": "object",
+      "properties": {
+        "shopper-id": {
+          "description": "UUID shopper identifier",
+          "type": "string"
+        },
+        "accrued-points": {
+          "type": "integer",
+          "format": "int64",
+          "x-nullable": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shopper-id",
+        "accrued-points"
+      ]
+    }
+  }
+}
