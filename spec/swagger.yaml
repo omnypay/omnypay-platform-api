@@ -2,10 +2,8 @@ swagger: '2.0'
 info:
   title: OmnyPay Platform Service API
   version: 0.0.146
-  description: |-
-    REST API for the OmnyPay Platform Service
-    # Introduction
-    See [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)
+  description:
+    $ref: main_description.yaml#/main_descriptions
   contact:
     email: info@omnypay.net
   x-logo:

@@ -1,0 +1,5 @@
+main_descriptions: |-
+  REST API for the OmnyPay Platform Service
+  # Introduction
+  See [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)
+
