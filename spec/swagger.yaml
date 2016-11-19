@@ -4,7 +4,7 @@
         "description": ""
         "title": "OmnyPay Platform Service API",
         "version": "0.0.145",
-        "description": "REST API for the OmnyPay Platform Service\n# Introduction\nSee [OmnyPay REST API Overview](https://github.com/omnypay/pantheon/wiki/Pantheon-REST-API)",
+        "description": "REST API for the OmnyPay Platform Service",
         "contact": {
             "email": "info@omnypay.net"
         },
